@@ -1,28 +1,75 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <b-container id='main-container'>
+    <div v-if="!start" id='start-area'>
+      <div>
+        <h2 id='title'>이상형 월드컵</h2>
+      </div>
+      <div id='start-button-area'>
+        <b-button id='start-button' variant="primary" @click='clickStart'>시작하기</b-button>
+      </div>
+    </div>
+    <div v-else id='image-area'>
+      <SelectImage />
+    </div>
+  </b-container>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import SelectImage from '@/components/SelectImage.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    SelectImage
+  },
+
+  data() {
+    return {
+      start: false,
+    }
+  },
+
+  methods: {
+
+    clickStart() {
+      this.start = !this.start;
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+
+  #main-container {
+    width: 100%;
+    height: 100hv;
+  }
+
+  #start-area {
+    width: 300px;
+    margin: auto;
+    margin-top: 30px;
+  }
+  
+  #title {
+    text-align: center;
+  }
+
+  #start-button-area {
+    width: 100px;
+    margin: auto;
+  }
+
+  #start-button {
+    width: 100%;
+  }
+
+
+  #image-area {
+    margin-top: 30px;
+
+    width: 100%;
+    height: 100hv;
+  }
+
 </style>
