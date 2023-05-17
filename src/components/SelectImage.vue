@@ -4,14 +4,14 @@
       <div class="select-image" @click="selectImage(left)">
         <img
           class="image-box"
-          :src="require(`@/assets/images/woman/${this.curList[left]}.gif`)"
+          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${this.allList.indexOf(this.curList[left])+1}.gif?alt=media`"
         />
         <div>{{ this.curList[left] }}</div>
       </div>
       <div class="select-image" @click="selectImage(right)">
         <img
           class="image-box"
-          :src="require(`@/assets/images/woman/${this.curList[right]}.gif`)"
+          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${this.allList.indexOf(this.curList[right])+1}.gif?alt=media`"
         />
         <div>{{ this.curList[right] }}</div>
       </div>
@@ -39,8 +39,12 @@ export default {
 
   data() {
     return {
+      allList: [],
       curList: [],
       nextList: [],
+
+      leftSrc: "",
+      rightSrc: "",
 
       left: 0,
       right: 1,
@@ -52,17 +56,22 @@ export default {
       this.nextList.push(this.curList[idx]);
       this.curList.splice(this.right, 1);
       this.curList.splice(this.left, 1);
+      
     },
 
     nextLevel() {
       this.curList = this.nextList;
+      this.curList = _.shuffle(this.curList);
       this.nextList = [];
     },
   },
 
   mounted() {
     // this.curList = ['계란후라이', '곱창', '국밥', '군만두', '돈까스', '떡볶이', '라면', '물만두', '삼겹살', '샐러드', '양념치킨', '족발', '초밥', '피자', '햄버거', '후라이드치킨'];
-    this.curList = [
+    this.allList = ["강소라", "강지영", "강한나", "경수진"];
+    this.curList = this.allList;
+
+    /* this.curList = [
       "강소라",
       "강지영",
       "강한나",
@@ -191,11 +200,9 @@ export default {
       "한채영",
       "한효주",
       "혜연",
-    ];
+    ]; */
 
     this.curList = _.shuffle(this.curList);
-
-    console.log(this.curList);
   },
 
   watch: {},
@@ -203,15 +210,19 @@ export default {
 </script>
 
 <style scoped>
+body {
+  background-color: black;
+}
+
 #show-image {
   display: flex;
   justify-content: center;
 }
 
 /* .select-image  {
-    width: 500px;
-    height: 500px;
-  } */
+      width: 500px;
+      height: 500px;
+    } */
 
 .select-image {
   text-align: center;
