@@ -24,7 +24,7 @@
         <h2>우승</h2>
         <img
           class="image-box"
-          :src="require(`@/assets/images/woman/${this.nextList[0]}.gif`)"
+          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${this.allList.indexOf(this.nextList[0])+1}.gif?alt=media`"
         />
       </div>
     </div>
@@ -68,10 +68,10 @@ export default {
 
   mounted() {
     // this.curList = ['계란후라이', '곱창', '국밥', '군만두', '돈까스', '떡볶이', '라면', '물만두', '삼겹살', '샐러드', '양념치킨', '족발', '초밥', '피자', '햄버거', '후라이드치킨'];
-    this.allList = ["강소라", "강지영", "강한나", "경수진"];
-    this.curList = this.allList;
+    // this.allList = ["강소라", "강지영", "강한나", "경수진"];
+    // this.curList = this.allList;
 
-    /* this.curList = [
+    this.allList = [
       "강소라",
       "강지영",
       "강한나",
@@ -200,8 +200,8 @@ export default {
       "한채영",
       "한효주",
       "혜연",
-    ]; */
-
+    ];
+    this.curList = this.allList;
     this.curList = _.shuffle(this.curList);
   },
 
