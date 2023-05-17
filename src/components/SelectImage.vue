@@ -4,14 +4,18 @@
       <div class="select-image" @click="selectImage(left)">
         <img
           class="image-box"
-          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${this.allList.indexOf(this.curList[left])+1}.gif?alt=media`"
+          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${
+            this.allList.indexOf(this.curList[left]) + 1
+          }.gif?alt=media`"
         />
         <div>{{ this.curList[left] }}</div>
       </div>
       <div class="select-image" @click="selectImage(right)">
         <img
           class="image-box"
-          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${this.allList.indexOf(this.curList[right])+1}.gif?alt=media`"
+          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${
+            this.allList.indexOf(this.curList[right]) + 1
+          }.gif?alt=media`"
         />
         <div>{{ this.curList[right] }}</div>
       </div>
@@ -24,7 +28,9 @@
         <h2>우승</h2>
         <img
           class="image-box"
-          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${this.allList.indexOf(this.nextList[0])+1}.gif?alt=media`"
+          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${
+            this.allList.indexOf(this.nextList[0]) + 1
+          }.gif?alt=media`"
         />
       </div>
     </div>
@@ -56,7 +62,6 @@ export default {
       this.nextList.push(this.curList[idx]);
       this.curList.splice(this.right, 1);
       this.curList.splice(this.left, 1);
-      
     },
 
     nextLevel() {
