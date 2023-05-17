@@ -234,8 +234,8 @@ body {
 }
 
 .image-box {
-  width: 800px;
-  height: 800px;
+  width: 850px;
+  height: 850px;
   object-fit: contain;
 }
 
