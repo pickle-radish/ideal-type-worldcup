@@ -1,23 +1,29 @@
 <template>
   <div>
+    <div id="status-board">
+      <h2 id="stage">{{ (this.allList.length / 2 ** this.stage) * 2 }}강</h2>
+      <div id="round">
+        {{ this.round }} / {{ this.allList.length / 2 ** this.stage }}
+      </div>
+    </div>
     <div id="show-image" v-if="this.curList.length > 0">
       <div class="select-image" @click="selectImage(left)">
         <img
           class="image-box"
-          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${
+          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${selectedCategory}%2F${
             this.allList.indexOf(this.curList[left]) + 1
-          }.gif?alt=media`"
+          }.${this.curList[left]['ext']}?alt=media`"
         />
-        <div>{{ this.curList[left] }}</div>
+        <div>{{ this.curList[left]["name"] }}</div>
       </div>
       <div class="select-image" @click="selectImage(right)">
         <img
           class="image-box"
-          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${
+          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${selectedCategory}%2F${
             this.allList.indexOf(this.curList[right]) + 1
-          }.gif?alt=media`"
+          }.${this.curList[right]['ext']}?alt=media`"
         />
-        <div>{{ this.curList[right] }}</div>
+        <div>{{ this.curList[right]["name"] }}</div>
       </div>
     </div>
     <div v-else>
@@ -28,10 +34,11 @@
         <h2>우승</h2>
         <img
           class="image-box"
-          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${
+          :src="`https://firebasestorage.googleapis.com/v0/b/worldcup-d3f65.appspot.com/o/${selectedCategory}/${
             this.allList.indexOf(this.nextList[0]) + 1
-          }.gif?alt=media`"
+          }?alt=media`"
         />
+        <div>{{ this.nextList[0]["name"] }}</div>
       </div>
     </div>
   </div>
@@ -39,6 +46,7 @@
 
 <script>
 import _ from "lodash";
+import { mapGetters } from "vuex";
 
 export default {
   name: "SelectImage",
@@ -52,9 +60,16 @@ export default {
       leftSrc: "",
       rightSrc: "",
 
+      round: 1,
+      stage: 1,
+
       left: 0,
       right: 1,
     };
+  },
+
+  computed: {
+    ...mapGetters(["selectedCategory", "koreawomanList", "worldwomanList"]),
   },
 
   methods: {
@@ -62,150 +77,28 @@ export default {
       this.nextList.push(this.curList[idx]);
       this.curList.splice(this.right, 1);
       this.curList.splice(this.left, 1);
+      if (this.curList.length > 0) {
+        this.round++;
+      }
     },
 
     nextLevel() {
       this.curList = this.nextList;
       this.curList = _.shuffle(this.curList);
       this.nextList = [];
+      this.stage++;
+      this.round = 1;
     },
   },
 
   mounted() {
-    // this.curList = ['계란후라이', '곱창', '국밥', '군만두', '돈까스', '떡볶이', '라면', '물만두', '삼겹살', '샐러드', '양념치킨', '족발', '초밥', '피자', '햄버거', '후라이드치킨'];
-    // this.allList = ["강소라", "강지영", "강한나", "경수진"];
-    // this.curList = this.allList;
-
-    this.allList = [
-      "강소라",
-      "강지영",
-      "강한나",
-      "경수진",
-      "고보결",
-      "고성희",
-      "고아라",
-      "고준희",
-      "공효진",
-      "권나라",
-      "김고은",
-      "김다미",
-      "김사랑",
-      "김세정",
-      "김소은",
-      "김소현",
-      "김옥빈",
-      "김유정",
-      "김지원",
-      "김지은",
-      "김태리",
-      "김혜수",
-      "김희선",
-      "나나",
-      "나은",
-      "노정의",
-      "류혜영",
-      "문가영",
-      "문근영",
-      "미연",
-      "박규영",
-      "박민영",
-      "박보영",
-      "박세영",
-      "박소담",
-      "박신혜",
-      "박은빈",
-      "박주현",
-      "박지현",
-      "박하선",
-      "박혜수",
-      "방민아",
-      "배두나",
-      "보나",
-      "서예지",
-      "서은수",
-      "서지혜",
-      "서현",
-      "서현진",
-      "설인아",
-      "설현",
-      "소진",
-      "손나은",
-      "송지효",
-      "송햐윤",
-      "송혜교",
-      "수지",
-      "신민아",
-      "신세경",
-      "신세휘",
-      "신시아",
-      "신예은",
-      "신현빈",
-      "신혜선",
-      "아이유",
-      "안소희",
-      "앨리스 소희",
-      "오연서",
-      "원진아",
-      "유리",
-      "유이",
-      "유인나",
-      "유인영",
-      "윤아",
-      "이나영",
-      "이다희",
-      "이민정",
-      "이보영",
-      "이선빈",
-      "이성경",
-      "이세영",
-      "이연희",
-      "이영애",
-      "이유비",
-      "이주명",
-      "이주빈",
-      "이지아",
-      "이채영",
-      "이하나",
-      "이하늬",
-      "임수향",
-      "임지연",
-      "장나라",
-      "전도연",
-      "전소민",
-      "전여빈",
-      "전효성",
-      "정려원",
-      "정소민",
-      "정수정",
-      "정유미",
-      "정은지",
-      "정채연",
-      "정호연",
-      "제니",
-      "조보아",
-      "조유리",
-      "조이",
-      "조이현",
-      "지수",
-      "진기주",
-      "채수빈",
-      "채정안",
-      "천우희",
-      "최수영",
-      "하니",
-      "하연수",
-      "하지원",
-      "한가인",
-      "한선화",
-      "한소희",
-      "한승연",
-      "한예슬",
-      "한지민",
-      "한지현",
-      "한채영",
-      "한효주",
-      "혜연",
-    ];
+    switch (this.selectedCategory) {
+      case "koreawoman":
+        this.allList = this.koreawomanList;
+        break;
+      case "worldwoman":
+        this.allList = this.worldwomanList;
+    }
     this.curList = this.allList;
     this.curList = _.shuffle(this.curList);
   },
@@ -222,6 +115,10 @@ body {
 #show-image {
   display: flex;
   justify-content: center;
+}
+
+#status-board {
+  text-align: center;
 }
 
 /* .select-image  {
